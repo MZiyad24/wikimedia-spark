@@ -53,7 +53,7 @@ wikimedia-spark/
 pip install -r requirements.txt
 
 ## ▶️ Run the Project
-python src/main.py
+python -m src.main
 
 ## 📊 Output
 Results are saved automatically in:
