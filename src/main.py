@@ -41,8 +41,8 @@ Loop Result:
 Time: {loop_time:.4f} sec
 ----------------------------------------
 """
-    save_to_file(f"{task_name.lower().replace(' ', '_')}.txt", output)
-
+    save_to_file(f"{task_name.lower().replace(' ', '_')}.txt", output, mode="w")
+    
     # Append benchmark
     benchmark_output = f"""
 {task_name}
@@ -64,6 +64,6 @@ if __name__ == "__main__":
     save_to_file("benchmark.txt", "", mode="w")
 
     # Run tasks
-    run_task("Task 1: Stats", mr_t1, loop_t1, rdd)
+    run_task("Task 1", mr_t1, loop_t1, rdd)
 
     spark.stop()
