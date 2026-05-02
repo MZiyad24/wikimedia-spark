@@ -1,12 +1,18 @@
+import os
+import sys
+
+os.environ["PYSPARK_PYTHON"] = sys.executable
+os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
+
 from pyspark.sql import SparkSession
-from parser import parse_line
-from config import DATA_PATH
-from utils import save_to_file
-from benchmark import measure
+from src.parser import parse_line
+from src.config import DATA_PATH
+from src.utils import save_to_file
+from src.benchmark import measure
 
 # Import tasks
-from tasks.mapreduce import task1_stats as mr_t1
-from tasks.loops import task1_stats as loop_t1
+from src.tasks.mapreduce.minMaxReduce import run as mr_t1
+from src.tasks.loops.minMaxLoops import run as loop_t1
 
 
 def get_rdd(spark):
@@ -17,10 +23,10 @@ def get_rdd(spark):
 
 def run_task(task_name, mr_func, loop_func, rdd):
     # Run MapReduce
-    mr_result, mr_time = measure(mr_func.run, rdd)
+    mr_result, mr_time = measure(mr_func, rdd)
 
     # Run Loop
-    loop_result, loop_time = measure(loop_func.run, rdd)
+    loop_result, loop_time = measure(loop_func, rdd)
 
     # Save task result
     output = f"""
@@ -51,7 +57,7 @@ if __name__ == "__main__":
         .appName("WikimediaAnalysis") \
         .master("local[*]") \
         .getOrCreate()
-
+        
     rdd = get_rdd(spark)
 
     # Clear old benchmark

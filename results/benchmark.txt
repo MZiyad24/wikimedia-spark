@@ -1,0 +1,4 @@
+
+Task 1: Stats
+MapReduce: 19.1955 sec
+Loop: 10.0817 sec
