@@ -14,6 +14,9 @@ from src.benchmark import measure
 from src.tasks.mapreduce.minMaxReduce import run as mr_t1
 from src.tasks.loops.minMaxLoops import run as loop_t1
 
+from src.tasks.mapreduce.topWordsReduce import run as mr_t3
+from src.tasks.loops.topWordsLoops import run as loop_t3
+
 
 def get_rdd(spark):
     sc = spark.sparkContext
@@ -42,7 +45,7 @@ Time: {loop_time:.4f} sec
 ----------------------------------------
 """
     save_to_file(f"{task_name.lower().replace(' ', '_')}.txt", output, mode="w")
-    
+
     # Append benchmark
     benchmark_output = f"""
 {task_name}
@@ -57,7 +60,7 @@ if __name__ == "__main__":
         .appName("WikimediaAnalysis") \
         .master("local[*]") \
         .getOrCreate()
-        
+
     rdd = get_rdd(spark)
 
     # Clear old benchmark
@@ -65,5 +68,6 @@ if __name__ == "__main__":
 
     # Run tasks
     run_task("Task 1", mr_t1, loop_t1, rdd)
+    run_task("Task 3", mr_t3, loop_t3, rdd)
 
     spark.stop()
