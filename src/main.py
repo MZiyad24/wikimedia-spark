@@ -20,6 +20,9 @@ from src.tasks.loops.topWordsLoops import run as loop_t3
 from src.tasks.mapreduce.topProjectsReduce import run as mr_t5
 from src.tasks.loops.topProjectsLoops import run as loop_t5
 
+from src.tasks.mapreduce.imagesReduce import run as mr_t2
+from src.tasks.loops.imagesLoops import run as loop_t2
+
 
 def get_rdd(spark):
     sc = spark.sparkContext
@@ -71,6 +74,7 @@ if __name__ == "__main__":
 
     # Run tasks
     run_task("Task 1", mr_t1, loop_t1, rdd)
+    run_task("Task 2", mr_t2, loop_t2, rdd)
     run_task("Task 3", mr_t3, loop_t3, rdd)
     run_task("Task 5", mr_t5, loop_t5, rdd)
 
