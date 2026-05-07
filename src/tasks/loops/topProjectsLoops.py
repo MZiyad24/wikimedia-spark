@@ -1,13 +1,31 @@
 def run(rdd):
-    project_hits = {}
 
-    for record in rdd.toLocalIterator():
-        project = record["project"]
-        hits = record["hits"]
-        if project in project_hits:
-            project_hits[project] += hits
+    data = rdd.collect()
+
+    max_pages = {}
+
+    for row in data:
+
+        project = row["project"]
+        title = row["title"]
+        hits = int(row["hits"])
+
+        # first page in project
+        if project not in max_pages:
+            max_pages[project] = (title, hits)
+
         else:
-            project_hits[project] = hits
 
-    top5 = sorted(project_hits.items(), key=lambda x: -x[1])[:5]
-    return "\n".join([f"{project}: {hits}" for project, hits in top5])
+            # compare hits
+            if hits > max_pages[project][1]:
+                max_pages[project] = (title, hits)
+
+    # vertical formatting
+    formatted = "\n".join(
+        [
+            f"{project} -> {title}: {hits}"
+            for project, (title, hits) in max_pages.items()
+        ]
+    )
+
+    return formatted

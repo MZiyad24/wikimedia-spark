@@ -1,4 +1,5 @@
 def run(rdd):
+
     data = rdd.collect()
 
     # dictionary 3shan n store total hits l kol project
@@ -25,4 +26,14 @@ def run(rdd):
     )
 
     # return top 5 projects
-    return sorted_projects[:5]
+    top5 = sorted_projects[:5]
+
+    # =========================
+    # vertical formatting ONLY
+    # =========================
+    result = "\n".join(
+        f"{project}: {hits}"
+        for project, hits in top5
+    )
+
+    return result

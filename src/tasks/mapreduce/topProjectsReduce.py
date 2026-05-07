@@ -1,9 +1,39 @@
 def run(rdd):
+
     result = (
         rdd
-        .map(lambda x: (x["project"], x["hits"]))      # emit (project, hits)
-        .reduceByKey(lambda a, b: a + b)                # sum hits per project
-        .sortBy(lambda x: -x[1])                        # sort descending
-        .take(5)                                         # top 5
+
+        # remove invalid rows
+        .filter(
+            lambda x:
+            x.get("project")
+            and x.get("title")
+            and x.get("hits")
+        )
+
+        # (project, (title, hits))
+        .map(
+            lambda x: (
+                x["project"],
+                (x["title"], int(x["hits"]))
+            )
+        )
+
+        # choose page with max hits
+        .reduceByKey(
+            lambda a, b:
+            a if a[1] > b[1] else b
+        )
+
+        .collect()
     )
-    return "\n".join([f"{project}: {hits}" for project, hits in result])
+
+    # vertical formatting
+    formatted = "\n".join(
+        [
+            f"{project} -> {title}: {hits}"
+            for project, (title, hits) in result
+        ]
+    )
+
+    return formatted
