@@ -1,2 +1,2 @@
-DATA_PATH = "data/pagecounts-20160101-000000_parsed.out"
+DATA_PATH = "data/pageviews.txt"
 RESULTS_DIR = "results"

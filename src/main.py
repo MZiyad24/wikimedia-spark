@@ -53,6 +53,7 @@ Loop Result:
 Time: {loop_time:.4f} sec
 ----------------------------------------
 """
+    print("the putput is " + output)
     save_to_file(f"{task_name.lower().replace(' ', '_')}.txt", output, mode="w")
 
     # Append benchmark

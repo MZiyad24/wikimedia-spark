@@ -1,0 +1,29 @@
+
+Task 3
+
+MapReduce Result:
+of: 194407
+the: 122045
+in: 82142
+de: 63118
+and: 41650
+list: 35067
+film: 26492
+user: 20769
+a: 19918
+album: 16732
+Time: 24.3592 sec
+
+Loop Result:
+of: 194407
+the: 122045
+in: 82142
+de: 63118
+and: 41650
+list: 35067
+film: 26492
+user: 20769
+a: 19918
+album: 16732
+Time: 20.8083 sec
+----------------------------------------
