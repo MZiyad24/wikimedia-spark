@@ -18,15 +18,15 @@ def run(rdd):
 
     def process_partition(rows):
         local_counts = {}
-        for record in rows:                          # ✅ loop inside partition
+        for record in rows:
             words = record["title"].split("_")
             for word in words:
                 normalized = normalize(word)
                 if normalized:
                     local_counts[normalized] = local_counts.get(normalized, 0) + 1
-        acc.add(local_counts)                        # ✅ one update per partition
+        acc.add(local_counts)
 
-    rdd.foreachPartition(process_partition)          # ✅ distributed loop action
+    rdd.foreachPartition(process_partition)
 
     top10 = sorted(acc.value.items(), key=lambda x: -x[1])[:10]
     return "\n".join([f"{term}: {count}" for term, count in top10])
