@@ -1,6 +1,12 @@
 import os
 import sys
 
+os.environ["JAVA_TOOL_OPTIONS"] = (
+    "-Djava.security.manager=allow "
+    "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED "
+    "--add-opens=java.base/java.nio=ALL-UNNAMED"
+)
+
 os.environ["PYSPARK_PYTHON"] = sys.executable
 os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
 
@@ -67,9 +73,11 @@ Loop: {loop_time:.4f} sec
 
 if __name__ == "__main__":
     spark = SparkSession.builder \
-        .appName("WikimediaAnalysis") \
-        .master("local[*]") \
-        .getOrCreate()
+    .appName("WikimediaAnalysis") \
+    .master("local[*]") \
+    .config("spark.driver.extraJavaOptions", "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED -Djava.security.manager=allow") \
+    .config("spark.executor.extraJavaOptions", "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED -Djava.security.manager=allow") \
+    .getOrCreate()
 
     rdd = get_rdd(spark)
 

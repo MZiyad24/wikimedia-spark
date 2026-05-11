@@ -22,7 +22,7 @@ def run(rdd):
         # choose page with max hits
         .reduceByKey(
             lambda a, b:
-            a if a[1] > b[1] else b
+            a if a[1] > b[1] or (a[1] == b[1] and a[0] <= b[0]) else b
         )
 
         .collect()

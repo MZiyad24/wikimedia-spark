@@ -1,31 +1,39 @@
+from pyspark import AccumulatorParam
+
+class MaxHitsAccumulator(AccumulatorParam):
+    def zero(self, value):
+        return {}
+    def addInPlace(self, val1, val2):
+        for project, (title, hits) in val2.items():
+            if project not in val1 \
+            or hits > val1[project][1] \
+            or (hits == val1[project][1] and title <= val1[project][0]):
+                val1[project] = (title, hits)
+        return val1
+
+
 def run(rdd):
 
-    data = rdd.collect()
+    sc = rdd.context
+    acc = sc.accumulator({}, MaxHitsAccumulator())
 
-    max_pages = {}
+    def process_partition(rows):
+        local_max = {}
+        for row in rows:
+            project = row["project"]
+            title = row["title"]
+            hits = int(row["hits"])
+            if project not in local_max \
+            or hits > local_max[project][1] \
+            or (hits == local_max[project][1] and title <= local_max[project][0]):
+                local_max[project] = (title, hits)
+        acc.add(local_max)
 
-    for row in data:
+    rdd.foreachPartition(process_partition)
 
-        project = row["project"]
-        title = row["title"]
-        hits = int(row["hits"])
-
-        # first page in project
-        if project not in max_pages:
-            max_pages[project] = (title, hits)
-
-        else:
-
-            # compare hits
-            if hits > max_pages[project][1]:
-                max_pages[project] = (title, hits)
-
-    # vertical formatting
     formatted = "\n".join(
-        [
-            f"{project} -> {title}: {hits}"
-            for project, (title, hits) in max_pages.items()
-        ]
+        [f"{project} -> {title}: {hits}"
+         for project, (title, hits) in sorted(acc.value.items())]
     )
 
     return formatted
