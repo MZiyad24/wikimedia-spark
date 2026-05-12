@@ -86,9 +86,9 @@ if __name__ == "__main__":
 
     # Run tasks
     run_task("Task 1", mr_t1, loop_t1, rdd)
-    run_task("Task 2", mr_t2, loop_t2, rdd)
-    run_task("Task 3", mr_t3, loop_t3, rdd)
-    run_task("Task 4", mr_t4, loop_t4, rdd)
-    run_task("Task 5", mr_t5, loop_t5, rdd)
+    # run_task("Task 2", mr_t2, loop_t2, rdd)
+    # run_task("Task 3", mr_t3, loop_t3, rdd)
+    # run_task("Task 4", mr_t4, loop_t4, rdd)
+    # run_task("Task 5", mr_t5, loop_t5, rdd)
 
     spark.stop()

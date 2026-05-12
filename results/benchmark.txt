@@ -1,20 +1,4 @@
 
 Task 1
-MapReduce: 18.5829 sec
-Loop: 5.2160 sec
-
-Task 2
-MapReduce: 10.2155 sec
-Loop: 14.6292 sec
-
-Task 3
-MapReduce: 25.0760 sec
-Loop: 8.8994 sec
-
-Task 4
-MapReduce: 9.8491 sec
-Loop: 9.0031 sec
-
-Task 5
-MapReduce: 9.2020 sec
-Loop: 5.0085 sec
+MapReduce: 20.9350 sec
+Loop: 5.0585 sec

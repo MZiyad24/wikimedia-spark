@@ -4,10 +4,10 @@ Task 2
 MapReduce Result:
 Total image page titles: 225911
 Non-English image page titles: 179082
-Time: 10.2155 sec
+Time: 11.0271 sec
 
 Loop Result:
 Total image page titles: 225911
 Non-English image page titles: 179082
-Time: 14.6292 sec
+Time: 5.4880 sec
 ----------------------------------------

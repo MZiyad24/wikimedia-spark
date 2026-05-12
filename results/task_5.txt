@@ -1079,7 +1079,7 @@ za.b -> MediaWiki:Yourpassword/zh-tw: 1
 zea.mw -> zea: 12
 zh-min-nan.d -> Aasia: 1
 zh.s -> User:Ewan0707/Sandbox3: 2
-Time: 9.2020 sec
+Time: 9.1477 sec
 
 Loop Result:
 aa -> Main_Page: 5
@@ -2159,5 +2159,5 @@ zu -> Ikhasi_Elikhulu: 9
 zu.b -> Funda_ukubala_Kahle: 1
 zu.d -> -banzi: 1
 zu.mw -> zu: 23
-Time: 5.0085 sec
+Time: 4.8982 sec
 ----------------------------------------
